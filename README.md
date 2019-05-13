@@ -29,22 +29,22 @@ Please follow the next steps:
 
 7. Add the next text in hosts file of your OS system:
 
-`172.20.0.5 sandbox.commerce.local`
+`172.21.0.5 sandbox.commerce.local`
 
 8. Open the browser and type the next link: http://sandbox.commerce.local/
 
 ## Network IPs ##
 | Container | IP |
 |--------|--------|
-|M2 NGINX|172.20.0.3|
-|M2 PHP|172.20.0.4|
-|M2 MySQl|172.20.0.5|
-|M2 Redis|172.20.0.6|
-|M2 Memcached|172.20.0.7|
-|M2 Mailcatcher|172.20.0.8|
-|M2 Elaticsearch01|172.20.0.9|
-|M2 Kibana|172.20.0.10|
-|M2 Logstash|172.20.0.11|
+|M2 NGINX|172.21.0.3|
+|M2 PHP|172.21.0.4|
+|M2 MySQl|172.21.0.5|
+|M2 Redis|172.21.0.6|
+|M2 Memcached|172.21.0.7|
+|M2 Mailcatcher|172.21.0.8|
+|M2 Elaticsearch01|172.21.0.9|
+|M2 Kibana|172.21.0.10|
+|M2 Logstash|172.21.0.11|
 
 
 ## Enter magento(PHP) container to run commands
