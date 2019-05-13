@@ -29,9 +29,9 @@ Please follow the next steps:
 
 7. Add the next text in hosts file of your OS system:
 
-`172.20.0.5 sandbox.local`
+`172.20.0.5 sandbox.commerce.local`
 
-8. Open the browser and type the next link: http://sandbox.local/
+8. Open the browser and type the next link: http://sandbox.commerce.local/
 
 ## Network IPs ##
 | Container | IP |

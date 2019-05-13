@@ -4,7 +4,7 @@ services:
     build:
       context: .docker/nginx/
     image: vulpea/magento2-nginx
-    container_name: vulpea_magento2_nginx_os
+    container_name: vulpea_magento2_nginx_ce
     depends_on:
       - db
       - phpfpm
@@ -24,17 +24,17 @@ services:
       - 80
     networks: &appnetworks
       default:
-        ipv4_address: 172.20.0.3
+        ipv4_address: 172.21.0.3
     environment:
-      - XDEBUG_CONFIG=remote_host=172.20.0.1
-      - PHP_IDE_CONFIG=serverName=sandbox.local
+      - XDEBUG_CONFIG=remote_host=172.21.0.1
+      - PHP_IDE_CONFIG=serverName=sandbox.commerce.local
       - XDEBUG_CONFIG=xdebug.idekey=PHPSTORM
 
   phpfpm:
     build:
       context: .docker/php/
     image: vulpea/magento2-php
-    container_name: vulpea_phpfpm_os
+    container_name: vulpea_phpfpm_ce
     depends_on:
       - db
     links:
@@ -44,28 +44,28 @@ services:
       - 9000
     networks:
       default:
-        ipv4_address: 172.20.0.4
+        ipv4_address: 172.21.0.4
     env_file: .env/setup.env
     environment:
-      - XDEBUG_CONFIG=remote_host=172.20.0.1
-      - PHP_IDE_CONFIG=serverName=sandbox.local
+      - XDEBUG_CONFIG=remote_host=172.21.0.1
+      - PHP_IDE_CONFIG=serverName=sandbox.commerce.local
       - XDEBUG_CONFIG=xdebug.idekey=PHPSTORM
 
   db:
     image: mysql:5.7
-    container_name: vulpea_db_os
+    container_name: vulpea_db_ce
     volumes:
       - ./dbdata/mysql:/var/lib/mysql
     ports:
       - 3306
     networks:
       default:
-        ipv4_address: 172.20.0.5
+        ipv4_address: 172.21.0.5
     env_file: .env/mysql.env
 
   setup:
     image: vulpea/magento2-php
-    container_name: vulpea_setup_os
+    container_name: vulpea_setup_ce
     command: /usr/local/bin/mage-setup
     links:
       - db
@@ -74,37 +74,37 @@ services:
 
   redis-magento:
     image: redis:3.0.7
-    container_name: vulpea_redis_os
+    container_name: vulpea_redis_ce
     ports:
       - 6379
       - 1985
     networks:
       default:
-        ipv4_address: 172.20.0.6
+        ipv4_address: 172.21.0.6
 
   memcached:
     image: memcached:1.4.35
-    container_name: vulpea_memcached_os
+    container_name: vulpea_memcached_ce
     ports:
       - 11211
     networks:
       default:
-        ipv4_address: 172.20.0.7
+        ipv4_address: 172.21.0.7
 
   mailcatcher:
      build: ./.docker/mailcatcher
-     container_name: vulpea_mailcatcher_os
+     container_name: vulpea_mailcatcher_ce
      image: vulpea/mailcatcher:0.6.4
      ports:
        - 1080
        - 1025
      networks:
        default:
-         ipv4_address: 172.20.0.8
+         ipv4_address: 172.21.0.8
 
   elasticsearch01:
       image: docker.elastic.co/elasticsearch/elasticsearch:6.1.4
-      container_name: vulpea_elasticsearch01_os
+      container_name: vulpea_elasticsearch01_ce
       environment:
         - node.name=elasticsearch01
         - cluster.name=magento-cluster
@@ -121,22 +121,22 @@ services:
         - 9200
       networks:
          default:
-           ipv4_address: 172.20.0.9
+           ipv4_address: 172.21.0.9
 
   kibana:
      image: docker.elastic.co/kibana/kibana:6.1.4
-     container_name: vulpea_kibana_os
+     container_name: vulpea_kibana_ce
      environment:
          - "ELASTICSEARCH_URL=http://elasticsearch01:9200"
      ports:
        - 5601
      networks:
         default:
-          ipv4_address: 172.20.0.10
+          ipv4_address: 172.21.0.10
 
   logstash:
     image: docker.elastic.co/logstash/logstash-oss:6.1.4
-    container_name: vulpea_logstash_os
+    container_name: vulpea_logstash_ce
     volumes:
       - ./.docker/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./.docker/logstash/pipeline:/usr/share/logstash/pipeline:ro
@@ -147,14 +147,14 @@ services:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
           default:
-            ipv4_address: 172.20.0.11
+            ipv4_address: 172.21.0.11
 
 networks:
   default:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.20.0.0/16
-          gateway: 172.20.0.1
+        - subnet: 172.21.0.0/16
+          gateway: 172.21.0.1
 
 
